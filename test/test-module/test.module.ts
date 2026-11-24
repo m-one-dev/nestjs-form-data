@@ -8,9 +8,6 @@ import { FormDataInterceptorConfig } from '../../src/interfaces';
   controllers: [
     TestController,
   ],
-  imports: [
-    NestjsFormDataModule,
-  ],
 })
 export class TestModule {
 
