@@ -1,3 +1,5 @@
+> **This is M One's fork of [nvxdm/nestjs-form-data](https://github.com/nvxdm/nestjs-form-data), published as [`@m-one-dev/nestjs-form-data`](https://www.npmjs.com/package/@m-one-dev/nestjs-form-data).** It adds NestJS 12 support and will be retired once upstream releases its own. Install and import `@m-one-dev/nestjs-form-data` where this README says `nestjs-form-data`.
+
 [![npm version](https://badge.fury.io/js/nestjs-form-data.svg)](https://badge.fury.io/js/nestjs-form-data)
 [![CI](https://github.com/dmitriy-nz/nestjs-form-data/actions/workflows/ci.yml/badge.svg)](https://github.com/dmitriy-nz/nestjs-form-data/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://img.shields.io/badge/License-MIT-green.svg)
@@ -35,7 +37,7 @@ No `@UploadedFile()`, no separate pipes, no manual cleanup. Just a DTO.
 - **Pluggable storage** — choose `MemoryStoredFile` for speed, `FileSystemStoredFile` for large files, or extend `StoredFile` to write your own (S3, GCS, etc.)
 - **Automatic cleanup** — temporary files are deleted after the request completes (configurable per success/failure)
 - **Express and Fastify** support
-- **NestJS 7 – 11** compatible
+- **NestJS 7 – 12** compatible
 
 ## Installation
 
