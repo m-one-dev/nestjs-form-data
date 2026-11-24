@@ -13,12 +13,26 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: 26.x
           cache: npm
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify the tag matches the version and is on master
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_NAME#v}" != "$VERSION" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version $VERSION."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor HEAD origin/master; then
+            echo "::error::Tag $GITHUB_REF_NAME is on a commit that is not on master. Tag a commit on master."
+            exit 1
+          fi
 
       - run: npm ci --ignore-scripts
 
@@ -36,5 +50,3 @@ jobs:
       - run: npm run test:e2e
 
       - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

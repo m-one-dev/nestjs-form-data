@@ -1,10 +1,11 @@
 ## v12.0.0
 - Published as `@m-one-dev/nestjs-form-data`, M One's fork of upstream
 - **FEATURE**: NestJS 12 support — the `@nestjs/common` and `@nestjs/core` peer ranges accept `^12.0.0`
-- Dev dependencies moved to NestJS 12, `@fastify/multipart` 10, TypeScript 5.9, Jest 30 and `@types/node` 20. NestJS 12 ships only as ESM, which Jest can `require()` only on Node 24.9+ with `--experimental-vm-modules`, so `test:e2e` passes that flag and CI runs on Node 24 and 26
-- The test module no longer imports `NestjsFormDataModule` both plain and configured. On NestJS 12 the plain copy's providers win, so the test configuration was ignored
+- **BREAKING**: When one module imports `NestjsFormDataModule` more than once, plain and through `config()` or `configAsync()`, NestJS 12 uses the first import's configuration, where NestJS 11 used the last. An `@Module()`'s own imports come before those of the dynamic module its static method returns, so a plain import there beside a configured one in a `forRoot()`-style method now gives the default configuration: the configured storage, limits and cleanup settings are ignored without an error. Import the module once in each module, either plain or configured
+- Dev dependencies moved to NestJS 12, `@fastify/multipart` 10, TypeScript 5.9, Jest 30 and `@types/node` 20. NestJS 12 ships only as ESM, which Jest can `require()` only on Node 24.9+ with `--experimental-vm-modules`, so `test:e2e` passes that flag, CI runs on Node 24 and 26, and `.nvmrc` pins Node 26
+- The test module no longer imports `NestjsFormDataModule` both plain and configured. On NestJS 12 its plain import came first, so the test configuration was ignored
 - `tsconfig.json` limits global types to `node` and `jest`, so `tsc` inside a monorepo skips the `@types` packages in parent `node_modules` folders
-- Publishing runs on a `v*` tag
+- Publishing runs on a `v*` tag, which must match `package.json`'s version and sit on `master`
 - Merged PR [Bump class-validator to the latest version](https://github.com/nvxdm/nestjs-form-data/pull/72) — added `class-validator` `^0.15.1` to peer dependencies (`0.15.0` was never published to npm) and bumped the dev dependency
 
 ## v11.0.1

@@ -1,7 +1,7 @@
 > **This is M One's fork of [nvxdm/nestjs-form-data](https://github.com/nvxdm/nestjs-form-data), published as [`@m-one-dev/nestjs-form-data`](https://www.npmjs.com/package/@m-one-dev/nestjs-form-data).** It adds NestJS 12 support and will be retired once upstream releases its own. Install and import `@m-one-dev/nestjs-form-data` where this README says `nestjs-form-data`.
 
-[![npm version](https://badge.fury.io/js/nestjs-form-data.svg)](https://badge.fury.io/js/nestjs-form-data)
-[![CI](https://github.com/dmitriy-nz/nestjs-form-data/actions/workflows/ci.yml/badge.svg)](https://github.com/dmitriy-nz/nestjs-form-data/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@m-one-dev/nestjs-form-data.svg)](https://www.npmjs.com/package/@m-one-dev/nestjs-form-data)
+[![CI](https://github.com/m-one-dev/nestjs-form-data/actions/workflows/ci.yml/badge.svg)](https://github.com/m-one-dev/nestjs-form-data/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://img.shields.io/badge/License-MIT-green.svg)
 
 # nestjs-form-data
@@ -165,6 +165,8 @@ export class S3StoredFile extends StoredFile {
 Then use it: `@FormDataRequest({ storage: S3StoredFile })`
 
 ## Configuration
+
+> **Import `NestjsFormDataModule` once in each module**, either plain or through `config()`/`configAsync()`, never both. When a module imports it both ways, only one configuration is used, and which one depends on import order: NestJS 12 uses the first import, NestJS 11 the last. An `@Module()`'s own imports come first, so on NestJS 12 a plain import there beside a configured one in a `forRoot()`-style method gives the default configuration, without an error.
 
 ### Static
 
